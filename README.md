@@ -59,6 +59,63 @@ Columns:
 
 Although the dataset contains many features, the current model and app use only five of them.
 
+## Important EDA
+
+The exploratory data analysis in `notebooks/notebook.ipynb` covers both data quality checks and feature-level inspection before modeling.
+
+### EDA steps included in the notebook
+
+- `df.info()` to inspect column types and non-null counts
+- duplicate-row check with `df.duplicated().sum()`
+- descriptive statistics with `df.describe()`
+- categorical distribution checks with `value_counts()`
+- numeric feature histograms
+- categorical count plots
+- numeric correlation matrix
+- correlation heatmap
+- scatter plots of numeric features against `exam_score`
+- box plots of categorical features against `exam_score`
+
+### Key findings from the dataset
+
+- total rows: `1000`
+- duplicate rows found: `0`
+- total missing values in the dataset: `91`
+- the strongest positive numeric correlation with `exam_score` is `study_hours_per_day` (`0.8254`)
+- other positive numeric relationships with `exam_score`:
+  - `mental_health_rating` (`0.3215`)
+  - `exercise_frequency` (`0.1601`)
+  - `sleep_hours` (`0.1217`)
+  - `attendance_percentage` (`0.0898`)
+- negative numeric relationships with `exam_score`:
+  - `netflix_hours` (`-0.1718`)
+  - `social_media_hours` (`-0.1667`)
+
+### Observations from categorical distributions
+
+- `part_time_job` is imbalanced:
+  - `No`: `785`
+  - `Yes`: `215`
+- `gender` is mostly balanced between `Female` and `Male`, with a smaller `Other` group
+- `diet_quality` is led by `Fair`, followed by `Good`, then `Poor`
+- `internet_quality` is mostly `Good` or `Average`
+- `extracurricular_participation` is mostly `No`
+
+### Why this EDA matters
+
+The EDA helps justify the current feature set used in the app, especially:
+
+- `study_hours_per_day`
+- `attendance_percentage`
+- `mental_health_rating`
+- `sleep_hours`
+- `part_time_job`
+
+It also highlights two practical modeling concerns:
+
+- the dataset contains missing values that should be handled explicitly in a production training pipeline
+- some categorical classes are imbalanced, which can affect how representative the learned relationships are
+
 ## Model Training Summary
 
 Training workflow lives in `notebooks/notebook.ipynb`.
