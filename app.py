@@ -20,7 +20,5 @@ if st.button("Predict Exam Score"):
     input_data = np.array([[study_hours, attendance, mental_health, sleep_hours, part_time_job_encoded]])
     prediction = model.predict(input_data)[0]
 
-    prediction_range = (max(0, prediction - 5), min(100, prediction + 5))
-    st.info(f"Predicted Exam Score Range: {prediction_range[0]:.2f} - {prediction_range[1]:.2f}")
-
+    prediction = max(0, min(100, prediction))
     st.success(f"Predicted Exam Score: {prediction:.2f}")
